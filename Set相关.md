@@ -1,4 +1,6 @@
-# Set
+# (一). Set
+
+Set是值得集合
 
 ## 1. set与数组区别
 
@@ -135,7 +137,7 @@ arr = [...set]
 
 
 
-## 10.获取set值
+## 10. 获取set值
 
 ```js
 let set = new Set([1, 2, 3, 4]);
@@ -152,7 +154,7 @@ SetIterator {1 => 1, 2 => 2, 3 => 3, 4 => 4} //键名和值是一样的
 
 
 
-## 11.遍历set
+## 11. 遍历set
 
 ```js
 let set = new Set([1, 2, 3, 4]);
@@ -162,6 +164,165 @@ set.forEach((item, index, arr) => {
     console.log(arr);
 })
 ```
+
+
+
+## 12. set处理数组并集
+
+```js
+const arr1 = [1,2,3,4,5];
+const arr2 = [3,4,5,6,7,8];
+
+const a = new Set([...arr1, ...arr2 ]); // 去重
+const b = [...a]; // 将其转为数组
+b => [1, 2, 3, 4, 5, 6, 7, 8];
+```
+
+
+
+## 13. 数组交集
+
+```js
+const arr1 = [1,2,3,4,5];
+const arr2 = [3,4,5,6,7,8];
+
+1. // set获取数组交集
+const a = new Set(arr2);
+const arr3 = arr1.filter(item => a.has(item)); // 过滤a里面包含b里面的元素);
+arr3 => [3, 4, 5];
+
+2. // includes获取数组交集
+arr1.filter(item => arr2.includes(item));
+```
+
+
+
+## 14. 数组的补集
+
+```js
+const arr1 = [1,2,3,4,5];
+const arr2 = [3,4,5,6,7,8];
+
+
+1. // includes获取数组补集
+const a = arr1.filter(item => !arr2.includes(item));
+const b = arr2.filter(item => !arr1.includes(item));
+const c = [...a, ...b];
+=> [1, 2, 6, 7, 8]
+
+2. // set获取数组补集
+const a = new Set(arr1);
+const b = new Set(arr2);
+
+const c = arr1.filter(item => !b.has(item));
+const d = arr2.filter(item => !a.has(item));
+const e = [...c, ...d];
+
+```
+
+# (二). WeakSet
+
+```js
+weakSet与set区别，参数必须为引用类型
+const weakSet = new WeakSet('123455');
+// 会报错'123455'因为不是引用类型
+
+const weakSet = new WeakSet([1,2]); // 数组是引用类型，那这样行么。
+// 也是会报错的，这种是相当于将[1,2]展开相当于【..[1,2]】 分别填入也相当于字符串
+
+那么我们要怎么样添加元素呢，只能使用add方法啦
+new WeakSet().add([1,2]); // 同样参数必须为【iterable】可迭代对象
+把[1,2] 作为一个一个值进行添加
+
+```
+
+
+
+## 1. 引用类型垃圾回收
+
+```js
+let obj1 = { name: 'zcy' }; // 只有自己使用这个对象标记 +1
+let obj2 = obj1; // 还有另一个人使用了这个对象, 标记 +1，被标记了两次
+
+当清除obj1
+obj1 = null; || obj1 = {}; // 此时标记减一且不会改变obj2;
+
+当清除obj2
+obj2 = null; || obj2 = {}; // 此时标记减一 且标记为0
+
+此时没有任何地方引用这个对象 { name: 'zcy' },那么内存中会自动清除，叫做垃圾回收
+
+```
+
+
+
+## 2. WeakSet属于弱引用
+
+```js
+let obj1 = { name: 'zcy' }; // 只有自己使用这个对象标记 +1
+let obj2 = obj1; // 还有另一个人使用了这个对象, 标记 +1，被标记了两次
+
+const weakSet = new WeakSet();
+weakSet.add(obj1); // 此时不会增加标记，且标记还是2次，所以WeakSet引用就是弱引用
+
+// 我们证明一下
+obj1 = null;
+obj2 = null; 
+// 按理来说如果这个对象没有被引用，标记就为0，那么就会将这个对象进行垃圾回收
+// 垃圾回收是不会通知WeakSet的，所以导致weakSet会认为他有这个变量，但是其实是空的
+=> 里面看似有值,其实是没有值的
+WeakSeat{{...}}
+[[Entries]]
+No properties
+
+// 我们使用定时器过段时间系统自动帮我们清除
+setTimeout(() => {
+    console.log(weakSet);
+},5000)
+         
+=> WeakSet {}
+
+## 对弱引用算法容易出错的方法有下面几个，为防止出错误
+# WeakSet不能循环，没有values()，keys(),entries()方法，size属性也没有，但是Set都有
+```
+
+
+
+## 3. WeakSeat三种方法
+
+```js
+WeakSet 有三个方法：add, delete, has 与Set方法一样
+
+WeakSet.prototype.add(value) 向WeakSet 实例添加一个成员
+WeakSet.prototype.delete(value) 清除 WeakSet 实例的指定成员
+WeakSet.prototype.has(value) 判断某个值是否在WeakSet 实例中，返回布尔值
+
+const a = new WeakSet();
+const arr = [1,2,3];
+a.add(arr);
+a.has(arr); => true // 有arr返回true，没有返回false
+a.delete(arr); => true // 删除成功返回
+
+```
+
+
+
+## 4. 应用场景
+
+```js
+用于存储DOM节点，而不用担心这些节点从文档移除时会引发内存泄露,即可以用来避免内存泄露的情况
+
+const list = document.querySelector('div');
+let weakSet = new WeakSet();
+list.forEach(item => weakSet.add(item));
+将dom保存在WeakSet里
+```
+
+
+
+
+
+
 
 
 
