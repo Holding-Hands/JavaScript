@@ -121,3 +121,82 @@ function a () {
 
 ```
 
+
+
+## 4. 立即执行函数
+
+```js
+# 子执行函数有自己的作用域，外面不能调用除非特殊方法
+# 防止你引入的其他插件和你的函数有命名冲突到时候就不知道是谁的调用谁的函数了
+## 老代码一般是使用自执行函数来定义的 以后都会使用模块化来解决
+
+1.
+(function a () {
+    console.log('我是自执行函数');
+})();
+
+=> 我是自执行函数 // 自执行函数有自己独立的作用域，其他的是访问不到的
+
+a(); // a is not defined 不能在全局使用
+
+2.
+(function a (window) {
+    function b() {
+         console.log('b');
+    }
+    
+    function c() {
+         console.log('c');
+    }
+    window.zcy = { b, c: c() }; // 相当于 window.zcy = { b: b, c: c() };
+})(window);
+zcy.b(); // 在全局调用
+zcy.c; // 在全局调用
+
+3. 使用let，const块级作用域来定义私有函数
+{
+   function b() {
+         console.log('b');
+    }
+    
+    function c() {
+         console.log('c');
+    }
+    window.zcy = { b, c }; // 如果没有 此行，外部是不能执行的
+}
+
+```
+
+
+
+## 5. 形参与实参
+
+```js
+1.
+function sum (a, b) {
+    console.log(a); // 1
+    console.log(b); // 2
+    return a + b;
+}
+sum(1, 2);
+// 此时的a, b就是形参
+// 此时的sum(1, 2) 1,2 就是实参
+# 一般形参与实参的个数需要一一对应的。
+
+2. // 如果你使用sum(1,2,3,4) 传入多个参数那么我们只取我们用到的前两个 对应a = 1; b = 2;
+function sum (a, b) {
+    console.log(a); // 1
+    console.log(b); // 2
+    return a + b;
+}
+sum(1, 2, 3, 4);
+
+3. // 如果你使用sum(1) 传入少于形参的参数个数，那么我们只取传入参数的值，没传入就是undefined 对应a = 1; b = undefined;
+function sum (a, b) {
+    console.log(a); // 1
+    console.log(b); // undefined
+    return a + b;
+}
+sum(1);
+```
+
