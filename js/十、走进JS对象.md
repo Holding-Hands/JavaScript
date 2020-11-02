@@ -56,6 +56,8 @@ let user = {
     age: 18
 };
 delete user.age // 返回true删除成功
+
+user.hasOwnProperty('age'); // 判断当前对象是否有这个属性 返回false
 delete user // 不能删除对象 只能删除属性 返回false
 ```
 
@@ -208,5 +210,376 @@ console.log(name, age); // 'z' 18 可以打印出来
 console.log(name, age); // 还是会报错
 
 # 其实在写程序时,最好都用严格模式
+```
+
+
+
+## 6. 多层对象的解构操作
+
+```js
+let obj = {
+    name: 'xm',
+    lesson: {
+        content: 'css'
+    }
+}
+
+let { name, lesson } = obj;
+console.log(name); // 'xm'
+console.log(lesson); // { content: 'css' }
+
+
+let { name, lesson: { content } } = obj; // lesson赋值给{ content }
+console.log(name); // 'xm'
+console.log(content); // 'css'
+```
+
+
+
+## 7. 数组解构与对象解构
+
+```js
+1. 正常的数组结构
+let arr = [19, 20];
+let [a, b] = arr;
+a
+=> 19
+b
+=> 20
+
+2. 取其中某个值
+let arr = [10, 11];
+let [a] = arr;
+a
+=> 10
+
+3.取其中某个值
+let arr = [10, 11];
+let [ , b] = arr;
+b
+=> 11
+
+4. 数组个数，少于变量个数
+let arr = [19, 20];
+let [a, b, c] = arr;
+console.log(a);
+console.log(b);
+console.log(c);
+
+=> 19 20 undefined
+
+5. 数组个数，少于变量个数，且赋值默认值
+let arr = [19, 20];
+let [a, b, c = 1] = arr;
+console.log(a, b, c);
+=> 19 20 1
+
+6. 对象解构
+let obj = {
+    name: 'sm',
+    character: '气人'
+}
+
+let { name, character } = obj;
+console.log(name, character);
+// 'sm' '气人'
+
+let { name, character, age } = obj;
+console.log(name, character, age);
+// 'sm' '气人' undefined
+
+let { name, character, age } = obj;
+console.log(name, character = 'aaa', age = 18); // 没有值的时候取默认值，有值的时候就不取默认值了
+// 'sm' '气人' 18
+
+注意对象解构和数组解构不同的是，数组换位置值会变，对象换位置不会
+
+let { character, name } = obj;
+console.log(name, character);
+// 'sm' '气人'
+```
+
+## 8. 解构默认值实现配置项合并
+
+```js
+function creatElement(option = {}) {
+    let { width = 100, height = 100, backgroundColor = 'cyan' } = option;
+    console.log(width, height, backgroundColor);
+    const creatDiv = document.createElement('div');
+    creatDiv.style.width = width + 'px';
+    creatDiv.style.height = height + 'px';
+    creatDiv.style.backgroundColor = backgroundColor;
+    document.body.appendChild(creatDiv);
+}
+creatElement({ width : 300 });
+
+
+```
+
+
+
+## 9. 函数参数的解构特性使用技巧
+
+```js
+1. 函数参数为数组
+function show ([name, age])(){
+    console.log(name, age); // ['sm', 18] = [name, age]
+}
+
+show(['sm', 18]);
+
+2.函数参数为对象
+function show ({ name, age })(){
+    console.log(name, age); // {name: 'sm', age: 18} = { name, age }
+}
+
+show({ name: 'sm', age: 18 });
+
+3. 部分解构
+function show (sex, { name, age })(){
+    console.log(sex, name, age); //sex = '女' {name: 'sm', age: 18} = { name, age }
+}
+
+show('女', { name: 'sm', age: 18 });
+```
+
+
+
+## 10. 对象与原型链属性检测实例
+
+```js
+1. // 使用hasOwnProperty()检测当前对象是否有这个属性(不包括原型)
+let array = [1, 2];
+ console.log(arr); // arr中有length属性
+ arr.hasOwnProperty('length'); // true
+ arr.hasOwnProperty('concat'); // false
+
+
+2. // 使用in检测当前对象是否有这个属性(包括原型)
+let array = [1, 2];
+console.log('length' in arr); // true
+console.log('concat' in arr); // true
+
+3.改变原型(原型可以理解父亲)
+let obj1 = {
+    name: 'sm'
+}
+
+let obj2 = {
+    age: 18
+}
+
+ Object.setPrototypeOf(obj1, obj2); // 为obj2设置obj1新的父亲
+ obj1.hasOwnProperty('name'); // true
+ obj1.hasOwnProperty('age'); // false
+ console.log('age' in obj1); // true
+
+```
+
+
+
+## 11. Object.assign()对象合并
+
+```js
+1. // 合并两个对象，且两个对象没有相同属性的
+let obj1 = {
+    name: 'sm'
+};
+
+let obj2 = {
+    age: 18
+};
+Object.assign(obj1, obj2); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18 }
+console.log(obj2);  // { age: 18 }
+
+
+2. // 合并两个对象，且两个对象有相同属性的
+let obj1 = {
+    name: 'sm',
+    age: 19
+};
+
+let obj2 = {
+    age: 18
+};
+Object.assign(obj1, obj2); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18 }
+console.log(obj2);  // { age: 18 }
+
+也就是说如果对象存在相同属性，后面的对象属性会覆盖前面的对象的属性，这和我们前面说的也是符合的，同名属性后者会覆盖前面的
+
+
+3.其实Object.assign()的参数可以很多的，并不只是局限于合并两个对象，可以合并多个对象
+let obj1 = {
+    name: 'sm',
+};
+
+let obj2 = {
+    age: 18
+};
+
+let obj3 = {
+    sex: '女'
+};
+Object.assign(obj1, obj2, obj3); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18, sex: '女' }
+
+
+4.上面我们也可以这样来写
+let obj1 = {
+    name: 'sm',
+};
+
+let obj2 = {
+    age: 18
+};
+
+let obj3 = {
+    sex: '女'
+};
+Object.assign(obj1, { age: 18 }, { sex: 女 }); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18, sex: '女' }
+
+5.我们也可以使用【...】展开运算符合并对象
+let obj1 = {
+    name: 'sm',
+};
+
+let obj2 = {
+    age: 18
+};
+
+let obj3 = {
+    sex: '女'
+};
+
+let newObj = {
+    ...obj1,
+    ...obj2,
+    ...obj3
+}
+// {name: "sm", age: 18, sex: "女"}
+```
+
+
+
+## 12. 获取对象的值与属性
+
+```js
+let obj = {
+    name: 'xm',
+    age: 18
+}
+
+1. 获取对象的所有键Object.keys();返回来一个对象中所有【键】组成的数组
+let keys = Object.keys(obj);
+console.log(keys); // ["name", "age"]
+console.log(obj); // { name: "xm", age: 18 },不会改变原对象
+
+
+2.获取对象的所有【属性值】，Object.values();返回来一个对象中所有【属性值】组成的【数组】
+let values = Object.values(obj);
+console.log(values); // ["xm", 18]
+console.log(obj); // { name: "xm", age: 18 },不会改变原对象
+
+3.Object.entries();返回来一个数组，数组元素是由对象中【属性】与【属性值】组成的数组，属于一个二维数组
+let entries = Object.entries(obj);
+console.log(entries); // [["name", "xm"], ["age", 18]]
+console.log(JSON.stringify(entries,null,2)); // 可以自己去控制台打印下
+console.log(obj); // { name: "xm", age: 18 },不会改变原对象
+
+总结：以上三个方法返回来的值都有迭代属性【iterator】，所以可以使用for...of来循环，for...of可以迭代对象
+
+1. 之前已经介绍过了，for...of不能遍历字面量对象,因为没有迭代属性【iterator】
+# Uncaught TypeError: obj is not iterable
+for(let key of obj) {
+    console.log(key); 
+}
+
+2.for...of遍历对象属性
+for(let key of Object.keys(obj)) {
+    console.log(key); // name age
+}
+
+3.for...of遍历对象属性值
+for(let key of Object.values(obj)) {
+    console.log(key); // 'xm' 18
+}
+
+4.for...of遍历对象,属性与属性值
+for(let [key, value] of Object.entries(obj)) {
+    console.log(key,value); // name xm,  age 18
+}
+```
+
+
+
+## 13. 对象的浅拷贝多种操作方法
+
+```js
+let obj1 = { name: 'xm' };
+
+let obj2 = obj1;
+
+obj1.name = 'zcy'; 
+console.log(obj1,obj2); // {name: "zcy"} {name: "zcy"}
+// 此时我们改变obj1的name，obj2也会跟着变（第二节讲过了，不懂回看下)
+
+
+# 那么我想只改变其中的一个不想改变另一个怎么办呢？看下面例子
+1.
+let obj3 = { name: 'xm' };
+let obj4 = { name: obj3.name }; // 此时是把obj1的值给复制了
+
+那我们改变其中obj3中的name，obj会变么
+obj3.name = 'zcy';
+console.log(obj3); // { name: "zcy"}
+console.log(obj4); // { name: "xm" }
+
+// 这两个对象看起来值一样，但是确是不同的对象，因为obj4是重新声明的，会在内存中重新开辟一块内存空间
+
+
+2. 上面对象是只有一个属性我们可以直接那样写，但是如果属性值很多我们还要一个一个写显然是不更灵活的，那么我们采用循环
+let obj5 = { name: 'xm', age: 18, sex: '女' };
+let obj6 = {}; // 我们先定义一个空对象，会在内存中重新开辟一块空间
+for(let key in obj5) {
+    obj6[key] = obj5[key];
+}
+console.log(obj6); // { name: "xm", age: 18, sex: "女" }
+
+那么我们现在改变其中一个对象属性，另一个对象属性还会变么,并没有变
+obj5.name = 'zcy';
+console.log(obj6); // { name: "xm", age: 18, sex: "女" }
+
+3.我们也可以使用Object.assign()
+let obj7 = { name: 'xm', age: 18, sex: '女' };
+let obj8 = Object.assign({}, obj7);
+console.log(obj8);
+obj7.name = 'zcy';
+console.log(obj7); // obj7被改变了
+console.log(obj8); // obj8没被改变
+
+4.我们也可以使用展开运算符
+let obj9 = { name: 'xm', age: 18, sex: '女' };
+let obj10 = { ...obj9 };
+console.log(obj10);
+obj9.name = 'zcy';
+console.log(obj9); // obj9被改变了
+console.log(obj10); // obj10没被改变
+
+
+总而言之浅拷贝就是复制的值不能有对象，比如说name属性不能是个对象
+let obj11 = { name: 'xm', age: 18, sex: '女', user: { name: 2 } };
+let obj12 = { ...obj11 };
+console.log(obj12);
+obj11.name = 'zcy';
+console.log(obj11); // obj11被改变了
+console.log(obj12); // obj12没被改变
+
+obj11.user.name = 'aaa'; // 我们改变了Obj11的user的name属性，我们看看obj12的name属性会不会变
+console.log(obj11, obj12); // { name: "zcy", age: 18, sex: "女", user: { name: "aaa" } };
+
+事实证明是两个对象的值是会变得，那么也就是说，如果使用以上的任何一种方式来，进行复制对象，那么都是浅拷贝，比如对象里的属性值还为对象这种(多层次的对象)
 ```
 
