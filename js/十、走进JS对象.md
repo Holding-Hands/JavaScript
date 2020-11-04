@@ -1,0 +1,970 @@
+# 十、 走进JS对象
+
+
+
+## 1. 属性的基本操作方法
+
+```js
+1.
+let user = {
+    name: 'sm'
+};
+
+①. // 使用【.】读取属性，一般推荐使用【.】语法
+console.log(user.name);
+
+②. // 使用【[]】读取属性,中括号里填字符的形式
+console.log(user['name']);
+
+2.
+let user = {
+    name: 'sm',
+    "my-age": 18,
+    1: 1,
+    "a b": 'ab'
+};
+console.log(user.name); // 访问不到,报错
+console.log(user['name']); // 这种特殊字符作为属性，只能用[]来访问
+
+console.log(user.1); // 访问不到,报错
+console.log(user['1']); // 这种数字作为属性，只能用[]来访问
+
+console.log(user.a b); // 访问不到,报错
+console.log(user['a b']); // 这种数字作为属性，只能用[]来访问
+
+3.
+for(let index in user) {
+    // index是属性名
+    console.log(user.index); // 这时候取得是user里的index属性
+    console.log(user[index]); // 这时候把index当成变量，获取对象里变量的值
+}
+
+4. // 给对象添加属性
+
+let user = {
+    name: 'sm'
+};
+user.age = 18;
+console.log(user); // 新增属性
+user.show = function() {} // 新增属性，值为函数
+
+
+5. // 删除对象属性
+
+let user = {
+    name: 'sm',
+    age: 18
+};
+delete user.age // 返回true删除成功
+
+user.hasOwnProperty('age'); // 判断当前对象是否有这个属性 返回false
+delete user // 不能删除对象 只能删除属性 返回false
+```
+
+
+
+## 2.  对象的引用传址
+
+```js
+1.
+let user1 = {}
+let user2 = user1; // 是将user1的内存地址传给user2，并不是传值，此时user1和user2共用一个内存地址
+
+// 所以 将其中一个改变，另一个也会改变
+user1.age = 18;
+console.log(user2.age); // 18
+
+
+2.
+let a = 1;
+function run(n) {
+    n++;
+}
+run(a); // 会改变a的值么
+console.log(a); // 其实是不会的，基本类型是传值
+
+3.
+let obj = {};
+function add(payload) {
+   payload.name = 'xm'; 
+}
+add(obj); // 会改变a的值么
+console.log(obj) // 其实是会的，引用类型是传址
+```
+
+
+
+## 3. 展开语法在对象中使用
+
+```js
+1. 对象合并
+let obj = {
+    name: 'zzz'
+}
+
+let user = {
+    age: 18
+}
+let newObj = { ...obj, ...user }; // ...obj取得里面的结构
+console.log(newObj);
+
+2. 如果两个对象中有同名属性合并之后怎么算呢
+let obj = {
+    name: 'zzz',
+    age: 26
+}
+
+let user = {
+    age: 18
+}
+let newObj = { ...obj, ...user };
+console.log(newObj); // {name: "zzz", age: 18}
+
+
+3. // 如果我们调换顺序呢
+let obj = {
+    name: 'zzz',
+    age: 26
+}
+
+let user = {
+    age: 18
+}
+let newObj = { ...user, ...obj };
+console.log(newObj); // {age: 26, name: "zzz"}
+
+总结：因为一个对象中如果存在同名属性，那么后面的会覆盖掉前面属性，所以谁在后面显示谁的属性
+```
+
+
+
+## 4. 解构赋值新增特性
+
+```js
+如果是展开语法是对数组和对象的批量处理，那么解构语法就是对(元素)数组和对象的结构的分解和处理, 对结构进行分解
+
+let user = {
+    name: 'z',
+    age: 18
+}
+
+1.  我们可以把name属性的值赋值给其他变量
+let { name: a, age: b } = user; // 将name属性的值赋值给a变量，age属性的值赋值给b变量
+console.log(a, b); // 'z' 18
+
+2.  我们也可以把name属性的值赋值给name，age属性的值赋值给age属性
+let { name: name, age: age } = user;
+console.log(name, age); // 'z' 18
+
+对象属性，和赋值是一样的，可以简写如下
+let { name, age } = user;
+
+3. 只要你是一个对象就可以对其进行解构
+function run() {
+    return {
+        name: 'z',
+        age: 18
+    }
+}
+let { name, age } = run(); // 返回值是对象可以解构
+
+
+4. 
+function run({ name, age }) {
+    console.log(name, age); // 'z' 18
+}
+run({ name: 'z', age: 18 });
+
+
+5. 我们可以接收其中几个，不用接收全部，其实就是你用哪个接收哪个
+let { name } = {
+    name: 'z',
+    age: 18
+}
+console.log(name); // 'z'
+console.log(age); // undefined
+我们只接收name属性，不接收age
+```
+
+
+
+## 5. 严格模式中解构的差异
+
+```js
+不使用严格模式的情况下
+let user = {
+    name: 'z',
+    age: 18
+}
+1.
+{ name, age } = user; // 我们不用var，let，const声明会报错
+console.log(name, age);
+
+2.我们使用()包起来
+({ name: a, age: b } = user);
+console.log(name, age); // 'z' 18 可以打印出来
+
+3.我们试试使用严格模式呢
+"use strict"
+({ name: a, age: b } = user);
+console.log(name, age); // 还是会报错
+
+# 其实在写程序时,最好都用严格模式
+```
+
+
+
+## 6. 多层对象的解构操作
+
+```js
+let obj = {
+    name: 'xm',
+    lesson: {
+        content: 'css'
+    }
+}
+
+let { name, lesson } = obj;
+console.log(name); // 'xm'
+console.log(lesson); // { content: 'css' }
+
+
+let { name, lesson: { content } } = obj; // lesson赋值给{ content }
+console.log(name); // 'xm'
+console.log(content); // 'css'
+```
+
+
+
+## 7. 数组解构与对象解构
+
+```js
+1. 正常的数组结构
+let arr = [19, 20];
+let [a, b] = arr;
+a
+=> 19
+b
+=> 20
+
+2. 取其中某个值
+let arr = [10, 11];
+let [a] = arr;
+a
+=> 10
+
+3.取其中某个值
+let arr = [10, 11];
+let [ , b] = arr;
+b
+=> 11
+
+4. 数组个数，少于变量个数
+let arr = [19, 20];
+let [a, b, c] = arr;
+console.log(a);
+console.log(b);
+console.log(c);
+
+=> 19 20 undefined
+
+5. 数组个数，少于变量个数，且赋值默认值
+let arr = [19, 20];
+let [a, b, c = 1] = arr;
+console.log(a, b, c);
+=> 19 20 1
+
+6. 对象解构
+let obj = {
+    name: 'sm',
+    character: '气人'
+}
+
+let { name, character } = obj;
+console.log(name, character);
+// 'sm' '气人'
+
+let { name, character, age } = obj;
+console.log(name, character, age);
+// 'sm' '气人' undefined
+
+let { name, character, age } = obj;
+console.log(name, character = 'aaa', age = 18); // 没有值的时候取默认值，有值的时候就不取默认值了
+// 'sm' '气人' 18
+
+注意对象解构和数组解构不同的是，数组换位置值会变，对象换位置不会
+
+let { character, name } = obj;
+console.log(name, character);
+// 'sm' '气人'
+```
+
+## 8. 解构默认值实现配置项合并
+
+```js
+function creatElement(option = {}) {
+    let { width = 100, height = 100, backgroundColor = 'cyan' } = option;
+    console.log(width, height, backgroundColor);
+    const creatDiv = document.createElement('div');
+    creatDiv.style.width = width + 'px';
+    creatDiv.style.height = height + 'px';
+    creatDiv.style.backgroundColor = backgroundColor;
+    document.body.appendChild(creatDiv);
+}
+creatElement({ width : 300 });
+
+
+```
+
+
+
+## 9. 函数参数的解构特性使用技巧
+
+```js
+1. 函数参数为数组
+function show ([name, age])(){
+    console.log(name, age); // ['sm', 18] = [name, age]
+}
+
+show(['sm', 18]);
+
+2.函数参数为对象
+function show ({ name, age })(){
+    console.log(name, age); // {name: 'sm', age: 18} = { name, age }
+}
+
+show({ name: 'sm', age: 18 });
+
+3. 部分解构
+function show (sex, { name, age })(){
+    console.log(sex, name, age); //sex = '女' {name: 'sm', age: 18} = { name, age }
+}
+
+show('女', { name: 'sm', age: 18 });
+```
+
+
+
+## 10. 对象与原型链属性检测实例
+
+```js
+1. // 使用hasOwnProperty()检测当前对象是否有这个属性(不包括原型)
+let array = [1, 2];
+ console.log(arr); // arr中有length属性
+ arr.hasOwnProperty('length'); // true
+ arr.hasOwnProperty('concat'); // false
+
+
+2. // 使用in检测当前对象是否有这个属性(包括原型)
+let array = [1, 2];
+console.log('length' in arr); // true
+console.log('concat' in arr); // true
+
+3.改变原型(原型可以理解父亲)
+let obj1 = {
+    name: 'sm'
+}
+
+let obj2 = {
+    age: 18
+}
+
+ Object.setPrototypeOf(obj1, obj2); // 为obj2设置obj1新的父亲
+ obj1.hasOwnProperty('name'); // true
+ obj1.hasOwnProperty('age'); // false
+ console.log('age' in obj1); // true
+
+```
+
+
+
+## 11. Object.assign()对象合并
+
+```js
+1. // 合并两个对象，且两个对象没有相同属性的
+let obj1 = {
+    name: 'sm'
+};
+
+let obj2 = {
+    age: 18
+};
+Object.assign(obj1, obj2); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18 }
+console.log(obj2);  // { age: 18 }
+
+
+2. // 合并两个对象，且两个对象有相同属性的
+let obj1 = {
+    name: 'sm',
+    age: 19
+};
+
+let obj2 = {
+    age: 18
+};
+Object.assign(obj1, obj2); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18 }
+console.log(obj2);  // { age: 18 }
+
+也就是说如果对象存在相同属性，后面的对象属性会覆盖前面的对象的属性，这和我们前面说的也是符合的，同名属性后者会覆盖前面的
+
+
+3.其实Object.assign()的参数可以很多的，并不只是局限于合并两个对象，可以合并多个对象
+let obj1 = {
+    name: 'sm',
+};
+
+let obj2 = {
+    age: 18
+};
+
+let obj3 = {
+    sex: '女'
+};
+Object.assign(obj1, obj2, obj3); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18, sex: '女' }
+
+
+4.上面我们也可以这样来写
+let obj1 = {
+    name: 'sm',
+};
+
+let obj2 = {
+    age: 18
+};
+
+let obj3 = {
+    sex: '女'
+};
+Object.assign(obj1, { age: 18 }, { sex: 女 }); // 往obj1里合并obj2,会改变obj1，不会改变obj2
+console.log(obj1); // { name: "sm", age: 18, sex: '女' }
+
+5.我们也可以使用【...】展开运算符合并对象
+let obj1 = {
+    name: 'sm',
+};
+
+let obj2 = {
+    age: 18
+};
+
+let obj3 = {
+    sex: '女'
+};
+
+let newObj = {
+    ...obj1,
+    ...obj2,
+    ...obj3
+}
+// {name: "sm", age: 18, sex: "女"}
+```
+
+
+
+## 12. 获取对象的值与属性
+
+```js
+let obj = {
+    name: 'xm',
+    age: 18
+}
+
+1. 获取对象的所有键Object.keys();返回来一个对象中所有【键】组成的数组
+let keys = Object.keys(obj);
+console.log(keys); // ["name", "age"]
+console.log(obj); // { name: "xm", age: 18 },不会改变原对象
+
+
+2.获取对象的所有【属性值】，Object.values();返回来一个对象中所有【属性值】组成的【数组】
+let values = Object.values(obj);
+console.log(values); // ["xm", 18]
+console.log(obj); // { name: "xm", age: 18 },不会改变原对象
+
+3.Object.entries();返回来一个数组，数组元素是由对象中【属性】与【属性值】组成的数组，属于一个二维数组
+let entries = Object.entries(obj);
+console.log(entries); // [["name", "xm"], ["age", 18]]
+console.log(JSON.stringify(entries,null,2)); // 可以自己去控制台打印下
+console.log(obj); // { name: "xm", age: 18 },不会改变原对象
+
+总结：以上三个方法返回来的值都有迭代属性【iterator】，所以可以使用for...of来循环，for...of可以迭代对象
+
+1. 之前已经介绍过了，for...of不能遍历字面量对象,因为没有迭代属性【iterator】
+# Uncaught TypeError: obj is not iterable
+for(let key of obj) {
+    console.log(key); 
+}
+
+2.for...of遍历对象属性
+for(let key of Object.keys(obj)) {
+    console.log(key); // name age
+}
+
+3.for...of遍历对象属性值
+for(let key of Object.values(obj)) {
+    console.log(key); // 'xm' 18
+}
+
+4.for...of遍历对象,属性与属性值
+for(let [key, value] of Object.entries(obj)) {
+    console.log(key,value); // name xm,  age 18
+}
+```
+
+
+
+## 13. 对象的浅拷贝多种操作方法
+
+```js
+let obj1 = { name: 'xm' };
+
+let obj2 = obj1;
+
+obj1.name = 'zcy'; 
+console.log(obj1,obj2); // {name: "zcy"} {name: "zcy"}
+// 此时我们改变obj1的name，obj2也会跟着变（第二节讲过了，不懂回看下)
+
+
+# 那么我想只改变其中的一个不想改变另一个怎么办呢？看下面例子
+1.
+let obj3 = { name: 'xm' };
+let obj4 = { name: obj3.name }; // 此时是把obj1的值给复制了
+
+那我们改变其中obj3中的name，obj会变么
+obj3.name = 'zcy';
+console.log(obj3); // { name: "zcy"}
+console.log(obj4); // { name: "xm" }
+
+// 这两个对象看起来值一样，但是确是不同的对象，因为obj4是重新声明的，会在内存中重新开辟一块内存空间
+
+
+2. 上面对象是只有一个属性我们可以直接那样写，但是如果属性值很多我们还要一个一个写显然是不更灵活的，那么我们采用循环
+let obj5 = { name: 'xm', age: 18, sex: '女' };
+let obj6 = {}; // 我们先定义一个空对象，会在内存中重新开辟一块空间
+for(let key in obj5) {
+    obj6[key] = obj5[key];
+}
+console.log(obj6); // { name: "xm", age: 18, sex: "女" }
+
+那么我们现在改变其中一个对象属性，另一个对象属性还会变么,并没有变
+obj5.name = 'zcy';
+console.log(obj6); // { name: "xm", age: 18, sex: "女" }
+
+3.我们也可以使用Object.assign()
+let obj7 = { name: 'xm', age: 18, sex: '女' };
+let obj8 = Object.assign({}, obj7);
+console.log(obj8);
+obj7.name = 'zcy';
+console.log(obj7); // obj7被改变了
+console.log(obj8); // obj8没被改变
+
+4.我们也可以使用展开运算符
+let obj9 = { name: 'xm', age: 18, sex: '女' };
+let obj10 = { ...obj9 };
+console.log(obj10);
+obj9.name = 'zcy';
+console.log(obj9); // obj9被改变了
+console.log(obj10); // obj10没被改变
+
+
+总而言之浅拷贝就是复制的值不能有对象，比如说name属性不能是个对象
+let obj11 = { name: 'xm', age: 18, sex: '女', user: { name: 2 } };
+let obj12 = { ...obj11 };
+console.log(obj12);
+obj11.name = 'zcy';
+console.log(obj11); // obj11被改变了
+console.log(obj12); // obj12没被改变
+
+obj11.user.name = 'aaa'; // 我们改变了Obj11的user的name属性，我们看看obj12的name属性会不会变
+console.log(obj11, obj12); // { name: "zcy", age: 18, sex: "女", user: { name: "aaa" } };
+
+事实证明是两个对象的值是会变得，那么也就是说，如果使用以上的任何一种方式来，进行复制对象，那么都是浅拷贝，比如对象里的属性值还为对象这种(多层次的对象)，复制值的时候就是传地址
+```
+
+
+
+## 14. 深拷贝多层次分析
+
+```js
+1.深拷贝函数
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+
+function deepClone(obj) {
+    let tempObj = {};
+    for(let key in obj) {
+        tempObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) :  obj[key];
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj);
+obj.user.name = 'zcy'
+console.log(obj); // 只改变了自己
+console.log(cloneObj); // 没有改变
+
+2.但是我们改写一下obj
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+function deepClone(obj) {
+    let tempObj = {};
+    for(let key in obj) {
+        tempObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) :  obj[key];
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj); 
+console.log(cloneObj);// 克隆之后的a就不是一个数组的，而是一个对象这样就不对了
+
+我们需要改进一下
+
+3. 改进区分数组与对象
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+function deepClone(obj) {
+    let tempObj = Array.isArray(obj) ? [] :  {};
+    for(let key in obj) {
+        tempObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) :  obj[key];
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj); 
+console.log(cloneObj);
+现在我们打印结果发现里面的值是一样的
+
+
+4. 改进保持顺序一致,使用 for...of
+//因为Object.entries(obj)返回来的顺序是根据原来的对象顺序是一致的，所以我们使用这个保持和原来的对象顺序一致
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+function deepClone(obj) {
+
+    // let tempObj = Array.isArray(obj) ? [] : {};
+    let tempObj = obj instanceof Array ? [] : {};
+    for(let [key, value] of Object.entries(obj)) {
+        console.log(key,'key');
+        tempObj[key] = typeof value === 'object' ? deepClone(value) : value;
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj); 
+console.log(cloneObj);
+```
+
+
+
+## 15. 使用构造函数创建数据
+
+```js
+1. 构造函数创建对象
+let obj = new Object();
+obj.name = 'zcy';
+
+对象的constructor指向它的构造函数为Object，也可以看对象原型上的方法哦
+
+
+2.构造函数创建数字
+let n = new Number(1);
+console.log(n); // 对象，可以查看number类型上面的所有方法
+console.log(n.valueOf()); // 1我们字面量创建的时候就是相当于，使用构造函数创建在使用valueOf获取数值的
+
+3.构造函数创建字符串
+let str = new String('啦啦啦');
+console.log(str); // 对象，可以查看string类型上面的所有方法
+console.log(str.valueOf());
+
+4.构造函数创建boolean值
+let F = new Boolean();
+console.log(F.valueOf()); // false 可以打印查看boolean所有的方法
+console.log(F.valueOf()); // 'false' 字符串false
+
+可以看到boolean只有两个方法
+
+5.构造函数创建日期
+let date = new Date();
+console.log(date.valueOf()); // 时间戳
+```
+
+
+
+## 16. 获取对象的属性特征
+
+```js
+# 1. Object.getOwnPropertyDescriptor(obj, attr)
+obj为需要获取的特征对象，attr为该对象属性
+该方法可以获取，对象某一属性特征的描述
+
+obj = {
+    name: 'sm',
+    age: 18
+}
+console.log(Object.getOwnPropertyDescriptor(obj, 'name'));
+
+{
+    value: "sm", // 该属性的值
+    configurable: true, // 属性是否可以重新配置特征，比如删除
+    enumerable: true, // 属性是否可以遍历，或者是可以理解使用Object.keys()能不能读取出来内容
+    writable: true // 是否可写，也就是是否可以修改，为true代表可以修改
+}
+
+
+# 2.Object.getOwnPropertyDescriptors(obj)
+obj为需要获取的特征对象
+该方法可以获取，对象所有属性特征的描述
+
+obj = {
+    name: 'sm',
+    age: 18
+}
+console.log(Object.getOwnPropertyDescriptors(obj));
+```
+
+
+
+## 17.  灵活的控制属性的特征
+
+```js
+// Object.defineProperty(obj, attr, option)
+obj为需要设置的对象，attr为该对象的属性，option为设置该属性的特征对象
+该方法可以改变，对象某一属性的特征
+
+obj = {
+    name: 'sm',
+    age: 18
+}
+
+1. // 修改属性特征【writable: false】属性值不能修改
+Object.defineProperty(obj, 'name', {
+    writable: false // 设置不可修改
+})
+obj.name = 'zcy';
+console.log(obj);
+
+我们设置name属性特征为不可修改，设置完之后，我们在修改name属性,在打印obj发现没有修改成功
+=>
+{ name: 'sm', age: 18 }
+
+2. // 修改属性特征【enumerable: false】属性值不能被遍历
+Object.defineProperty(obj, 'name', {
+    enumerable: false // 设置不可被遍历
+})
+Object.keys(obj);  // ["age"]
+Object.values(obj); // [18]
+Object.entries(obj); // [ [ "age", 18 ] ]
+
+
+3. // 修改属性特征【configurable: false】属性值不能被删除
+Object.defineProperty(obj, 'name', {
+    configurable: false // 设置不可被遍历
+})
+
+delete obj.name;
+
+我们发现，并没有删除成功
+当我们把configurable设置为false，我们不能在重新配置也就是重新使用，下面方法，否则会报错,如下图
+Object.defineProperty(obj, 'name', {
+    configurable: true // 设置不可被遍历
+})
+
+```
+
+​                                     [![imgbed.cn图床](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/638671f5-b5d7-49f7-b3c3-5ed8e3e4da35.png)](https://imgbed.cn)
+
+   ```js
+// Object.defineProperties(obj,option);
+obj为需要设置属性特征的对象，option为各个属性组成的配置，该方法为对多个属性进行设置特征
+
+Object.defineProperties(obj, {
+    'name': {
+        value: 'll'
+        configurable: false
+    },
+    'age': {
+        writable: false
+    }
+})
+   ```
+
+
+
+## 18. 阻止向对象中添加属性
+
+```js
+// 1. Object.preventExtensions(obj);  
+英文意思：prevent Extensions 阻止扩展
+使用该方法设置对象后，则该对象不允许添加新的属性
+
+let obj = {
+    name: 'sm',
+    age: 18
+}
+
+Object.preventExtensions(obj);
+obj.sex = '女'; // 我们企图添加sex属性
+console.log(obj); // {name: "sm", age: 18} 没有添加成功，
+
+// 2. Object.isExtensible(obj);
+该方法返回boolean值，判断是否能够添加属性，如果为真则能添加属性，如果为假添加不了属性
+
+
+例如: 我们可以使用下面这样进行判断,如果返回true，则说明，对象没有被保护则可扩展（进行添加属性）
+if(Object.isExtensible(obj)) {
+    console.log(Object.isExtensible(obj));
+    obj.sex = '女'; // 我们添加sex属性 
+}
+
+
+# 注意：使用Object.preventExtensions()方法只是不能添加，但是可以修改和删除
+obj.name = 'zcy';
+console.log(obj);
+delete obj.name;
+console.log(obj);
+
+以上方法方法，对象是会改变的
+```
+
+
+
+## 19. 封闭对象Object.seal()
+
+```js
+所谓封闭对象，就是不允许添加，删除对象属性，也不可以修改对象特征，但可以修改对象值
+let user= {
+    name: 'sm',
+    age: 18
+}
+
+Object.seal(user); // 使用此操作相当于改变了对象的特征【configurable】为【false】不信的话可打印对象特征查
+obj.sex = '女';
+console.log(obj);
+delete obj.name;
+console.log(obj);
+当我么使用Object.seal()之后，我们添加和删除对象对象属性，对象是不会改变的
+```
+
+## 20. 判断对象是否是封闭对象
+
+```js
+Object.isSealed(object);
+该方法返回boolean值，如果为true则说明该对象已经被封闭，为false则说明该对象没有被封闭
+
+let user= {
+    name: 'sm',
+    age: 18
+}
+Object.seal(user);
+Object.isSealed(user); // true
+
+// 如果对象没封闭我们添加属性
+if(!Object.isSealed(user)) {
+    user.sex = '女'；
+}
+```
+
+
+
+## 21. 冻结对象Object.freeze()
+
+```js
+let user= {
+    name: 'sm',
+    age: 18
+}
+
+1. console.log(Object.getOwnPropertyDescriptors(user));// 打印下未冻结前的对象特征
+{
+    age: {
+        configurable: true,
+        enumerable: true,
+        value: 18,
+        writable: true	
+},
+    name: {
+        configurable: true,
+        enumerable: true,
+        value: "sm",
+        writable: true	
+    }
+}
+
+Object.freeze(user);
+
+
+2. console.log(Object.getOwnPropertyDescriptors(user)); // 打印下冻结后的对象特征
+
+{
+    age: {
+        configurable: false,
+        enumerable: true,
+        value: 18,
+        writable: false
+},
+    name: {
+        configurable: false,
+        enumerable: true,
+        value: "sm",
+        writable: false	
+    }
+}
+
+其实就是改变了【configurable】，【writable】属性，所以冻结之后就是不能修改属性值，和不能删除属性，不能重新配置
+```
+
+
+
+## 22. 判断对象是否冻结
+
+```js
+Object.isFrozen(obj);
+返回boolean，true 说明该对象被冻结了 false说明该对象没被冻结
+
+let user= {
+    name: 'sm',
+    age: 18
+}
+
+Object.freeze(user);
+
+Object.isFrozen(user); // true
+
+```
+
+
+
+## 23. 使用访问器保护数据set get
+
+```js
+let user= {
+    name: 'sm',
+    age: 18,
+    set age(val) {
+        if(typeof val !== number || number < 0 || number > 110)
+        console.log(val, 'val')
+    },
+    get age() {
+        return this.age
+    }
+}
+
+user.age = 1
+```
+
+
+
