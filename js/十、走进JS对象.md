@@ -580,6 +580,125 @@ console.log(obj12); // obj12没被改变
 obj11.user.name = 'aaa'; // 我们改变了Obj11的user的name属性，我们看看obj12的name属性会不会变
 console.log(obj11, obj12); // { name: "zcy", age: 18, sex: "女", user: { name: "aaa" } };
 
-事实证明是两个对象的值是会变得，那么也就是说，如果使用以上的任何一种方式来，进行复制对象，那么都是浅拷贝，比如对象里的属性值还为对象这种(多层次的对象)
+事实证明是两个对象的值是会变得，那么也就是说，如果使用以上的任何一种方式来，进行复制对象，那么都是浅拷贝，比如对象里的属性值还为对象这种(多层次的对象)，复制值的时候就是传地址
+```
+
+
+
+## 14. 深拷贝多层次分析
+
+```js
+1.深拷贝函数
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+
+function deepClone(obj) {
+    let tempObj = {};
+    for(let key in obj) {
+        tempObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) :  obj[key];
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj);
+obj.user.name = 'zcy'
+console.log(obj); // 只改变了自己
+console.log(cloneObj); // 没有改变
+
+2.但是我们改写一下obj
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+function deepClone(obj) {
+    let tempObj = {};
+    for(let key in obj) {
+        tempObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) :  obj[key];
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj); 
+console.log(cloneObj);// 克隆之后的a就不是一个数组的，而是一个对象这样就不对了
+
+我们需要改进一下
+
+3. 改进区分数组与对象
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+function deepClone(obj) {
+    let tempObj = Array.isArray(obj) ? [] :  {};
+    for(let key in obj) {
+        tempObj[key] = typeof obj[key] === 'object' ? deepClone(obj[key]) :  obj[key];
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj); 
+console.log(cloneObj);
+现在我们打印结果发现里面的值是一样的
+
+
+4. 改进保持顺序一致,使用 for...of
+//因为Object.entries(obj)返回来的顺序是根据原来的对象顺序是一致的，所以我们使用这个保持和原来的对象顺序一致
+let obj = { 
+    name: 'xm',
+    user: { name: 2 },
+    a: []
+};
+function deepClone(obj) {
+
+    // let tempObj = Array.isArray(obj) ? [] : {};
+    let tempObj = obj instanceof Array ? [] : {};
+    for(let [key, value] of Object.entries(obj)) {
+        console.log(key,'key');
+        tempObj[key] = typeof value === 'object' ? deepClone(value) : value;
+    }
+    return tempObj;
+}
+
+let cloneObj = deepClone(obj); 
+console.log(cloneObj);
+```
+
+
+
+## 15. 使用构造函数创建数据
+
+```js
+1. 构造函数创建对象
+let obj = new Object();
+obj.name = 'zcy';
+
+对象的constructor指向它的构造函数为Object，也可以看对象原型上的方法哦
+
+
+2.构造函数创建数字
+let n = new Number(1);
+console.log(n); // 对象，可以查看number类型上面的所有方法
+console.log(n.valueOf()); // 1我们字面量创建的时候就是相当于，使用构造函数创建在使用valueOf获取数值的
+
+3.构造函数创建字符串
+let str = new String('啦啦啦');
+console.log(str); // 对象，可以查看string类型上面的所有方法
+console.log(str.valueOf());
+
+4.构造函数创建boolean值
+let F = new Boolean();
+console.log(F.valueOf()); // false 可以打印查看boolean所有的方法
+console.log(F.valueOf()); // 'false' 字符串false
+
+可以看到boolean只有两个方法
+
+5.构造函数创建日期
+let date = new Date();
+console.log(date.valueOf()); // 时间戳
 ```
 
