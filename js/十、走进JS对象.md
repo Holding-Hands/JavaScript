@@ -702,3 +702,272 @@ let date = new Date();
 console.log(date.valueOf()); // 时间戳
 ```
 
+<<<<<<< HEAD
+=======
+
+
+## 16. 获取对象的属性特征
+
+```js
+# 1. Object.getOwnPropertyDescriptor(obj, attr)
+obj为需要获取的特征对象，attr为该对象属性
+该方法可以获取，对象某一属性特征的描述
+
+obj = {
+    name: 'sm',
+    age: 18
+}
+console.log(Object.getOwnPropertyDescriptor(obj, 'name'));
+
+{
+    value: "sm", // 该属性的值
+    configurable: true, // 属性是否可以重新配置特征，比如删除
+    enumerable: true, // 属性是否可以遍历，或者是可以理解使用Object.keys()能不能读取出来内容
+    writable: true // 是否可写，也就是是否可以修改，为true代表可以修改
+}
+
+
+# 2.Object.getOwnPropertyDescriptors(obj)
+obj为需要获取的特征对象
+该方法可以获取，对象所有属性特征的描述
+
+obj = {
+    name: 'sm',
+    age: 18
+}
+console.log(Object.getOwnPropertyDescriptors(obj));
+```
+
+
+
+## 17.  灵活的控制属性的特征
+
+```js
+// Object.defineProperty(obj, attr, option)
+obj为需要设置的对象，attr为该对象的属性，option为设置该属性的特征对象
+该方法可以改变，对象某一属性的特征
+
+obj = {
+    name: 'sm',
+    age: 18
+}
+
+1. // 修改属性特征【writable: false】属性值不能修改
+Object.defineProperty(obj, 'name', {
+    writable: false // 设置不可修改
+})
+obj.name = 'zcy';
+console.log(obj);
+
+我们设置name属性特征为不可修改，设置完之后，我们在修改name属性,在打印obj发现没有修改成功
+=>
+{ name: 'sm', age: 18 }
+
+2. // 修改属性特征【enumerable: false】属性值不能被遍历
+Object.defineProperty(obj, 'name', {
+    enumerable: false // 设置不可被遍历
+})
+Object.keys(obj);  // ["age"]
+Object.values(obj); // [18]
+Object.entries(obj); // [ [ "age", 18 ] ]
+
+
+3. // 修改属性特征【configurable: false】属性值不能被删除
+Object.defineProperty(obj, 'name', {
+    configurable: false // 设置不可被遍历
+})
+
+delete obj.name;
+
+我们发现，并没有删除成功
+当我们把configurable设置为false，我们不能在重新配置也就是重新使用，下面方法，否则会报错,如下图
+Object.defineProperty(obj, 'name', {
+    configurable: true // 设置不可被遍历
+})
+
+```
+
+​                                     [![imgbed.cn图床](https://vkceyugu.cdn.bspapp.com/VKCEYUGU-imgbed/638671f5-b5d7-49f7-b3c3-5ed8e3e4da35.png)](https://imgbed.cn)
+
+   ```js
+// Object.defineProperties(obj,option);
+obj为需要设置属性特征的对象，option为各个属性组成的配置，该方法为对多个属性进行设置特征
+
+Object.defineProperties(obj, {
+    'name': {
+        value: 'll'
+        configurable: false
+    },
+    'age': {
+        writable: false
+    }
+})
+   ```
+
+
+
+## 18. 阻止向对象中添加属性
+
+```js
+// 1. Object.preventExtensions(obj);  
+英文意思：prevent Extensions 阻止扩展
+使用该方法设置对象后，则该对象不允许添加新的属性
+
+let obj = {
+    name: 'sm',
+    age: 18
+}
+
+Object.preventExtensions(obj);
+obj.sex = '女'; // 我们企图添加sex属性
+console.log(obj); // {name: "sm", age: 18} 没有添加成功，
+
+// 2. Object.isExtensible(obj);
+该方法返回boolean值，判断是否能够添加属性，如果为真则能添加属性，如果为假添加不了属性
+
+
+例如: 我们可以使用下面这样进行判断,如果返回true，则说明，对象没有被保护则可扩展（进行添加属性）
+if(Object.isExtensible(obj)) {
+    console.log(Object.isExtensible(obj));
+    obj.sex = '女'; // 我们添加sex属性 
+}
+
+
+# 注意：使用Object.preventExtensions()方法只是不能添加，但是可以修改和删除
+obj.name = 'zcy';
+console.log(obj);
+delete obj.name;
+console.log(obj);
+
+以上方法方法，对象是会改变的
+```
+
+
+
+## 19. 封闭对象Object.seal()
+
+```js
+所谓封闭对象，就是不允许添加，删除对象属性，也不可以修改对象特征，但可以修改对象值
+let user= {
+    name: 'sm',
+    age: 18
+}
+
+Object.seal(user); // 使用此操作相当于改变了对象的特征【configurable】为【false】不信的话可打印对象特征查
+obj.sex = '女';
+console.log(obj);
+delete obj.name;
+console.log(obj);
+当我么使用Object.seal()之后，我们添加和删除对象对象属性，对象是不会改变的
+```
+
+## 20. 判断对象是否是封闭对象
+
+```js
+Object.isSealed(object);
+该方法返回boolean值，如果为true则说明该对象已经被封闭，为false则说明该对象没有被封闭
+
+let user= {
+    name: 'sm',
+    age: 18
+}
+Object.seal(user);
+Object.isSealed(user); // true
+
+// 如果对象没封闭我们添加属性
+if(!Object.isSealed(user)) {
+    user.sex = '女'；
+}
+```
+
+
+
+## 21. 冻结对象Object.freeze()
+
+```js
+let user= {
+    name: 'sm',
+    age: 18
+}
+
+1. console.log(Object.getOwnPropertyDescriptors(user));// 打印下未冻结前的对象特征
+{
+    age: {
+        configurable: true,
+        enumerable: true,
+        value: 18,
+        writable: true	
+},
+    name: {
+        configurable: true,
+        enumerable: true,
+        value: "sm",
+        writable: true	
+    }
+}
+
+Object.freeze(user);
+
+
+2. console.log(Object.getOwnPropertyDescriptors(user)); // 打印下冻结后的对象特征
+
+{
+    age: {
+        configurable: false,
+        enumerable: true,
+        value: 18,
+        writable: false
+},
+    name: {
+        configurable: false,
+        enumerable: true,
+        value: "sm",
+        writable: false	
+    }
+}
+
+其实就是改变了【configurable】，【writable】属性，所以冻结之后就是不能修改属性值，和不能删除属性，不能重新配置
+```
+
+
+
+## 22. 判断对象是否冻结
+
+```js
+Object.isFrozen(obj);
+返回boolean，true 说明该对象被冻结了 false说明该对象没被冻结
+
+let user= {
+    name: 'sm',
+    age: 18
+}
+
+Object.freeze(user);
+
+Object.isFrozen(user); // true
+
+```
+
+
+
+## 23. 使用访问器保护数据set get
+
+```js
+let user= {
+    name: 'sm',
+    age: 18,
+    set age(val) {
+        if(typeof val !== number || number < 0 || number > 110)
+        console.log(val, 'val')
+    },
+    get age() {
+        return this.age
+    }
+}
+
+user.age = 1
+```
+
+
+
+>>>>>>> zcy
