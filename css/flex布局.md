@@ -8,6 +8,8 @@
 
 * 默认沿着主轴方向从 main start 到main end方向 依次排列
 
+<img src="http://www.ruanyifeng.com/blogimg/asset/2015/bg2015071004.png" alt="" title="">
+
 ## 2. justify-content
 
 * 决定了flex item在main axis上的对齐方式

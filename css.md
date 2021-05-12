@@ -843,69 +843,132 @@ background-color: transparent
 
 ### 4. 伪元素
 
-* 常用的伪元素（一个冒号:或两个冒号都行）
+##### 4.1.  :first-line 
 
-  * :first-line 、::first-line
+* 一个冒号:或两个冒号都行
 
-    ```css
-    可以针对首行文本设置属性
-    /* 设置p元素中 第一行文字的样式 */
-    p:first-line {
-        color: #FFF;
-    }
-    
-    只能设置的属性：字体属性，颜色属性，背景属性，word-spacing、letter-sapcing、text-decoration、line-height、
-    text-transform
-    ```
+* :first-line 、::first-line
 
-    
+  ```css
+  可以针对首行文本设置属性
+  /* 设置p元素中 第一行文字的样式 */
+  p:first-line {
+      color: #FFF;
+  }
+  
+  只能设置的属性：字体属性，颜色属性，背景属性，word-spacing、letter-sapcing、text-decoration、line-height、
+  text-transform
+  ```
 
-  * :first-letter、::first-letter
 
-    ```css
-    /* 设置p元素中 第一个字的样式 */
-    p:first-letter {
-        font-size: 30px;
-    }
-    
-    只能设置的属性：字体属性、margin属性、padding属性、border属性、颜色属性、背景属性
-    ```
+##### 4.2. :first-letter
 
-    
+* :first-letter、::first-letter
 
-  * :before、::before
+  ```css
+  /* 设置p元素中 第一个字的样式 */
+  p:first-letter {
+      font-size: 30px;
+  }
+  
+  只能设置的属性：字体属性、margin属性、padding属性、border属性、颜色属性、背景属性
+  ```
 
-    ```css
-    用来在一个元素内容之前插入其他内容，可以是文字、图片
-    span::before {
-        content: '我是before的内容';
-        margin-right: 10px;
-    }
-    
-    span::before {
-        content: url(图片地址); 
-        margin-right: 10px;
-    }
-    /*
-      在css属性值中使用url来引入图片，加不加引号都行
-      url(图片地址)
-      url('图片地址')
-    */
-    ```
 
-    
+##### 4.3. :before
 
-  * :after、::after
+* :before、::before
 
-    ```css
-    用来在一个元素内容之后插入其他内容，可以是文字、图片
-    span::after {
-        content: '我是after的内容';
-        margin-right: 10px;
-    }
-    
-    伪元素可以看成是行内元素，不支持设置宽高，如果想设置宽高，设置display: inline-block;
-    ```
+  ```css
+  用来在一个元素内容之前插入其他内容，可以是文字、图片
+  span::before {
+      content: '我是before的内容';
+      margin-right: 10px;
+  }
+  
+  span::before {
+      content: url(图片地址); 
+      margin-right: 10px;
+  }
+  /*
+    在css属性值中使用url来引入图片，加不加引号都行
+    url(图片地址)
+    url('图片地址')
+  */
+  ```
 
-    
+
+
+
+##### 4.4. :after
+
+* :after、::after
+
+  ```css
+  用来在一个元素内容之后插入其他内容，可以是文字、图片
+  span::after {
+      content: '我是after的内容';
+      margin-right: 10px;
+  }
+  
+  伪元素可以看成是行内元素，不支持设置宽高，如果想设置宽高，设置display: inline-block;
+  ```
+
+
+
+
+### 5. css特性
+
+##### 5.1. 继承
+
+* css中`有些`属性是可继承的。font-size、color等不用死记硬背
+
+* 什么是继承？
+
+  * 一个元素，如果没有设置某些属性的值，就会跟随`父元素`的值
+  * 一个元素，如果有设置某些属性的值，就会使用自己设置的值
+
+* 可以查mdn 看看那些属性具有继承https://developer.mozilla.org/zh-CN/
+
+  * 我们一般搜索的时候要找到这种结构，才是对这个属性介绍，并不一定是搜索结果的第一项。 *…The* width *CSS property sets an element's* width*.…*（看不懂可忽略）
+  * 未继承的属性比如width我们可以通过设置 width:100%；或者width：inherit；
+
+* css属性继承的是计算值（computed value），并不是当初编写属性的指定值（字面值）
+
+  ```css
+  .parent {
+      font-size: 60px;
+  }
+  
+  .child {
+      font-size: 0.5em; /* 继承的时候是，继承计算值0.5 * 60 = 30，而不是继承0.5em 你想grandson继承0.5em那就是相当于child 30px的一半 那就是15px 那就不对了 */
+  }
+  
+  <div class="parent">
+  	<div class="child">
+  		<div class="grandson">123</div>
+  	</div>
+  </div>
+  ```
+
+  
+
+##### 5.2. 层叠
+
+* css允许多个相同名字的class属性层叠同一个元素上
+* 层叠后的结果是：只有一个css属性会生效
+
+* 后面的样式把前面的层叠掉，前提：使用了相同的选择器
+* 当选择器不同，不能按照基本层叠来理解 就按照权重来层叠
+* import! 10000
+* 内联样式 1000
+* id选择器权重：100
+* class，属性，伪类选择器权重：10
+* 元素，伪元素选择器权重：1
+* 通配符 0
+* 比较优先级的严谨方法
+  * 从权重最大的开始比较每一种权重的数量多少，数量多的则优先级高，即可结束比较
+  * 如果数量相同，比较下一个较小的权重，以此类推
+
+
 

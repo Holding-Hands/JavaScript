@@ -3,9 +3,9 @@
 ## 一、单词缩写
 
 * lang 是language的缩写 
-* src 是source（源）的单词缩写
+* src 是source（源）的单词缩写 
 * charset，char(字符) set（设置）字符编码
-* href 是 hypertext reference 的缩写 超级引用，超链接
+* href 是 hypertext reference 的缩写 超级引用，超链接 
 * p元素是paragraph的缩写 （段落）
 * SEO 是 search engine optimization 搜索引擎优化 
 * br 是 break缩写 换行 打断的意思
@@ -15,6 +15,10 @@
 * ge = greater and equal 大于等于
 * ne = not equal  不等于
 * px 是 pixel 缩写 像素
+* order 顺序(n)、命令(v)
+* ol是 ordered list 的缩写   无需列表
+* li 是 list item的缩写 列表每一项
+* ul 是 unordered list 的缩写 无序列表
 
 
 
@@ -70,12 +74,13 @@ head元素里面的内容是一些元数据(描述数据的数据)
 
 
 
-## 四、 SEO优化
+## 四、SEO优化
 
 * 搜索引擎优化
 * 搜索引擎有哪些：百度、搜狗、360、谷歌
 * h标签对SEO优化有很大优势，尽量把重要信息放到H1里，尽量一个网站只有一个H1标签
 * 乱用h标签元素不仅不会给网站带来好的权重，同时也有可能被搜索引擎认为作弊，最后导致k站
+  * K来自于英文Kill,网站被K,一般是指网站被搜索引擎封杀了
 * 可以访问京东、淘宝等都是一个h1元素
 
 
@@ -171,7 +176,110 @@ head元素里面的内容是一些元数据(描述数据的数据)
 
   * a链接不一定要跳转，也可以是一个下载的链接，比如github，也可以是一个邮箱，也可以是迅雷的链接
 
+* 列表元素
 
+  * html提供了三组常用的用来展示列表的元素
+
+    * 有序列表：ol(ordered list)、li（list item）
+
+      * 直接子元素自能是 li
+
+        ```html
+        <ol>
+            <li>你好，李焕英</li>
+            <li>这个杀手不太冷</li>
+            <li>海贼王</li>
+            <li>画江湖之不良人</li>
+            <li>斗罗大陆</li>
+        </ol>
+        
+        ```
+
+        ![](https://i.bmp.ovh/imgs/2021/04/cc3827bcca153cf7.png)
+
+        ```css
+        我们可以看下图，谷歌浏览器，给ol自带的属性margin-block-start、margin-block-end、margin-inline-start、margin-inline-end 分别对应的是
+        
+        margin-block-start --> margin-top
+        margin-block-end --> margin-bottom
+        margin-inline-start --> margin-left
+        margin-inline-end --> margin-right
+        
+        为什么不用margin-right、margin-left、margin-bottom、margin-top呢 原因好像是根据文字的阅读方向有关，有的国家是从右到左阅读的，所以这时候设置margin-right、margin-left就会有显示问题，才用的这个
+        ```
+
+    * 无序列表：ul、li
+
+      * ul (unordered list)
+
+      * 无序列表，直接子元素只能是li
+
+        ```html
+        <ul>
+            <li>你好，李焕英</li>
+            <li>这个杀手不太冷</li>
+            <li>海贼王</li>
+            <li>画江湖之不良人</li>
+            <li>斗罗大陆</li>
+        </ul>
+        ```
+    
+    * 定义列表：dl、dt、dd
+    
+      * dl （definition list）
+    
+      * dt （defination term/title）
+    
+        * 列表中每一项的项目名
+    
+      * dd（defination description）
+    
+        * 列表中每一项的具体描述，是对dt的描述、解释、补充
+    
+      * 定义列表，直接子元素只能是dt、dd
+    
+        ```html
+        <dl>
+            <dt1>title1</dt1>
+            <dd>1</dd>
+            <dd>2</dd>
+            
+            <dt2>title2</dt2>
+            <dd>1</dd>
+            <dd>2</dd>
+            
+            <dt3>title3</dt3>
+            <dd>1</dd>
+            <dd>2</dd>
+        </dl>
+        ```
+  
+* 列表属性
+
+  * 列表常见css的属性有4个: list-style-type、list-style-image、list-style-position、list-style
+  * 上述属性都可以继承，所以设置给ol、ul、默认也会继承li元素，是一样的
+  *  list-style-type
+    * 设置li元素前面的标记的样式
+    * decimal：阿拉伯数字（1，2，3)
+    * disc：实心圆
+    * circle：空心圆
+    * square：实心方块
+    * lower-roman(小写罗马数字)
+    * upper-roman(大写罗马数字)
+    * lower-alpha(小写英文字母)
+    * upper-alpha(大写英文字母)
+    * none：不设置
+  * list-style-image
+    * 设置某张图片为li前面的标记，会覆盖list-style-type的设置
+    * list-style-image: url(./image/star.jfif)
+  * list-style-position
+    * 设置li元素前面的标记的位置
+    * outside  这几个点不算在内容之内
+    * inside  这几个点算在内容之内
+  * list-style
+    * list-style-type、list-style-image、list-style-position的缩写属性
+    * list-style: outside url(./image/star.jfif)  顺序可以随便调
+    * 一般设置 none
 
 ## 七、图片格式
 
@@ -215,4 +323,23 @@ head元素里面的内容是一些元数据(描述数据的数据)
     * 通过支持thunder（专用下载链接）协议的p2p软件访问该资源（代表软件迅雷），格式是thunder://
 
 
+
+## 九、href与src区别
+
+* link 使用href来**引用**
+
+* script、img、iframe使用src来**引入**，src 的内容，是页面必不可少的一部分，是**引入**
+
+* href 的内容 与该页面有关联是**引用**
+
+  * <link href="common.css" rel="stylesheet"/>当浏览器解析到这一句的时候会识别该文档为css文件，会下载并且不会停止对当前文档的处理(也就是继续向下执行，并不会向js文件等下载才会往下执行)，这也是为什么建议使用link方式来加载css而不是使用@import
+  * CSS放头部在加载html生成DOM tree的时候，就可以同时对DOM tree进行渲染。这样可以防止闪跳，白屏或者布局混乱。
+
+* src 引用资源，表示替换当前元素，用在img，script，iframe上，src是页面内容不可缺少的一部分
+
+  * <script src="utils.js"></script>
+
+    当浏览器解析到这一句的时候会暂停其他资源的下载和处理，直至将该资源加载，编译，执行完毕，img、iframe也是这样，类似于该元素所指向的资源嵌套如当前标签内，这也是为什么要把放在底部而不是头部。
+
+* 看到个比喻感觉挺恰当，在我们写论文的时候，src其实就是引入一句名人名言，href相当于引入一整段
 
