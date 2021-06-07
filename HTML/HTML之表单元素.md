@@ -32,7 +32,7 @@
 * accept-charset
 
   * charset 字符编码
-  * 规定表单提交时使用的字符编码（默认值unkonwn，和文档相同多的编码 <meta charset="UTF-8">）
+  * 规定表单提交时使用的字符编码（默认值unkonwn，指的是和文档相同的编码 <meta charset="UTF-8">）
 
 * enctype 编码类型
 
@@ -75,17 +75,17 @@
   ```html
   <span>爱 好：</span>
   
-          <span>唱歌</span>
-          <input type="checkbox" name="hobby">
+  <span>唱歌</span>
+  <input type="checkbox" name="hobby">
   
-          <span>跳舞</span>
-          <input type="checkbox" name="hobby">
+  <span>跳舞</span>
+  <input type="checkbox" name="hobby">
   
-          <span>rap</span>
-          <input type="checkbox" name="hobby">
+  <span>rap</span>
+  <input type="checkbox" name="hobby">
   
-          <span>篮球</span>
-          <input type="checkbox" name="hobby">
+  <span>篮球</span>
+  <input type="checkbox" name="hobby">
   ```
 
   ![](https://i.bmp.ovh/imgs/2021/05/c0bb370ab114422b.png)
@@ -432,11 +432,14 @@
       </select>
    </div>
   
+  option元素的属性
   selected: 默认选中哪一项
+  
+  select元素的属性
   multiple: 可以多选
   size: 显示多少项 默认显示全部选项
   ```
-
+  
   ![](https://i.bmp.ovh/imgs/2021/05/66c58b9922a49a18.png)
   
   
