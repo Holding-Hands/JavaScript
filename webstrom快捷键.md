@@ -35,3 +35,5 @@ Ctrl + J： 自动代码
 块注释：Ctrl + Shift + /
 
 大小写转换：Ctrl + Shift + U 
+
+多行编辑：按住鼠标滚轮 往下拉
