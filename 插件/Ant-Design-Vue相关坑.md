@@ -47,7 +47,7 @@ defaultValue 与change事件 搭配才会变话 相当于v-model
 
 
 
-### 2. 表格错位问题 
+### 3. 表格错位问题 
 
 ```vue
 <!--   评审附件  -->
@@ -73,3 +73,18 @@ defaultValue 与change事件 搭配才会变话 相当于v-model
 ```
 
 ![](https://ftp.bmp.ovh/imgs/2021/03/f0583cc6c1cb0ee7.png)
+
+
+
+### 4. 去掉 ant-design-vue table边框
+
+```css
+/deep/ .ant-table-thead tr th {
+  border: none;
+}
+
+/deep/ .ant-table-tbody tr td {
+  border: none;
+}
+```
+
