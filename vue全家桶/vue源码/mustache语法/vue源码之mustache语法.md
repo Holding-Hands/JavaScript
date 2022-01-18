@@ -323,6 +323,21 @@ import mustache  from '../lib/mustache.js'
 const templateStr = document.querySelector('#template').innerHtml
 const domTree = mustache.render(templateStr, data)
 document.querySelector('.parent').innerHTML = mustache.render(templateStr, data)
+          
+          
+ 当然现在浏览器支持template标签和上面功能一样，都是不渲染的
+ 1.好处会有代码提示，更加方便
+ <template id="template">
+     {{#info}}
+            {{#isShow}}
+                <div>
+                    <div>姓名：{{name}} </div>
+                    <div>年龄：{{age}}</div>
+                    <div>性别：{{sex}}</div>
+                </div>
+            {{/isShow}}
+        {{/info}} 
+ <template>
 ```
 
 
