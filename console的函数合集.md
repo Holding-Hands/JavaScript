@@ -12,8 +12,23 @@ console.time('zcy');
 console.timeEnd('zcy'); // 这两行代码一起使用，记录执行的时间，参数需要相同当作标记符号
 
 ​```
-console.warn(); // 打印出=警告消息
+console.warn(); // 打印出警告消息
 ```
 
 
+
+```js
+row[(timeType === 'hour' || timeType === 'minute')
+ ? 
+ (dataCheckType === 2 ? 'v_' + col.factorIndexCode + '_b'
+ :  
+ row.hasOwnProperty(`v_${col.factorIndexCode}_symbol`) 
+  	? 
+  	`v_${col.factorIndexCode}_symbol`
+  	: 
+  	'v_' + col.factorIndexCode)
+    :
+    'v_' + col.factorIndexCode] || '--' 
+
+```
 
