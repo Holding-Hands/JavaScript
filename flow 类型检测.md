@@ -4,7 +4,7 @@
 
 ### 一、认识Flow
 
-[Flow](https://flow.org/en/)是facebook 出品的 JavaScript 静态类型检查工具。Vue.js的源码利用了Flow做了静态类型检查，所以了解Flow有助于我没阅读源码
+[Flow](https://flow.org/en/)是facebook 出品的 JavaScript 静态类型检查工具。Vue2的源码利用了Flow做了静态类型检查(Vue3使用TS进行类型检测)，所以了解Flow有助于我们阅读源码
 
 ### 二、为什么用Flow
 

@@ -1,5 +1,3 @@
-console的函数合集
-
 ```js
 const a = {};
 const arr [1,2,3];
@@ -13,22 +11,5 @@ console.timeEnd('zcy'); // 这两行代码一起使用，记录执行的时间�
 
 ​```
 console.warn(); // 打印出警告消息
-```
-
-
-
-```js
-row[(timeType === 'hour' || timeType === 'minute')
- ? 
- (dataCheckType === 2 ? 'v_' + col.factorIndexCode + '_b'
- :  
- row.hasOwnProperty(`v_${col.factorIndexCode}_symbol`) 
-  	? 
-  	`v_${col.factorIndexCode}_symbol`
-  	: 
-  	'v_' + col.factorIndexCode)
-    :
-    'v_' + col.factorIndexCode] || '--' 
-
 ```
 
