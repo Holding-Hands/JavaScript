@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container"></div>
+<script src="/xuni/dist.js"></script>
+<script>
+    // 模板字符串
+    const templateStr =  `
+        {{#info}}
+            <div>
+                <div>姓名：{{name}} </div>
+                <div>年龄：{{age}}</div>
+                <div>性别：{{sex}}</div>
+                <ul>爱好：
+                {{#hobbies}}
+                    <li>{{.}}</li>
+                {{/hobbies}}
+                </ul>
+            </div>
+        {{/info}}
+`
+    // 数据
+    const data = {
+        info: [
+            { name: '小明', age: 18, sex: '男', hobbies: ['游泳', '游戏'] },
+            { name: '小红', age: 18, sex: '女', hobbies: ['跳棋', '象棋'] },
+            { name: '小李', age: 18, sex: '男', hobbies: ['魔方', '魔术'] }
+        ]
+    }
+    const domStr = mustache.render(templateStr, data)
+    const containerEl = document.querySelector('.container')
+    containerEl.innerHTML = domStr
+</script>
+</body>
+</html>
