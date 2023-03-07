@@ -1,0 +1,99 @@
+#### element el-dialog弹框拖拽指令
+
+* 代码实现
+  * 新建一个directive文件夹，文件夹下面新建index.js。在mainjs里引入，这个文件就可以。
+
+```js
+import Vue from 'vue';
+
+// v-draggable: el-dialog弹窗拖拽指令
+Vue.directive('draggable', {
+  bind(el, binding, vnode, oldVnode) {
+    const dialogHeaderEl = el.querySelector('.el-dialog__header');
+    const dragDom = el.querySelector('.el-dialog');
+
+    // 获取原有属性
+    const sty = (dom, attr) => getComputedStyle(dom, null)[attr];
+
+    dialogHeaderEl.onmousedown = (e) => {
+      // 鼠标按下，计算当前元素距离可视区的距离
+      const disX = e.clientX - dialogHeaderEl.offsetLeft;
+      const disY = e.clientY - dialogHeaderEl.offsetTop;
+
+      const screenWidth = document.body.clientWidth; // body当前宽度
+      const screenHeight = document.documentElement.clientHeight; // 可见区域高度(应为body高度，可某些环境下无法获取)
+
+      const dragDomWidth = dragDom.offsetWidth; // 对话框宽度
+      const dragDomheight = dragDom.offsetHeight; // 对话框高度
+
+      const minDragDomLeft = dragDom.offsetLeft;
+      const maxDragDomLeft = screenWidth - dragDom.offsetLeft - dragDomWidth;
+
+      const minDragDomTop = dragDom.offsetTop;
+      const maxDragDomTop = screenHeight - dragDom.offsetTop - dragDomheight;
+
+      // 获取到的值带px 正则匹配替换
+      let styL = sty(dragDom, 'left');
+
+      if (styL === 'auto') {
+        styL = '0px';
+      }
+      let styT = sty(dragDom, 'top');
+
+      // 在ie中 第一次获取到的值为组件自带50% 移动之后赋值为px
+      if (styL.includes('%')) {
+        styL = +document.body.clientWidth * (+styL.replace(/%/g, '') / 100);
+        styT = +document.body.clientHeight * (+styT.replace(/%/g, '') / 100);
+      } else {
+        styL = +styL.replace(/px/g, '');
+        styT = +styT.replace(/px/g, '');
+      }
+
+      document.onmousemove = function (eSelf) {
+        // 计算移动的距离
+        let left = eSelf.clientX - disX;
+        let top = eSelf.clientY - disY;
+          
+        // 边界处理
+        if (-left > minDragDomLeft) {
+          left = -minDragDomLeft;
+        } else if (left > maxDragDomLeft) {
+          left = maxDragDomLeft;
+        }
+
+        if (-top > minDragDomTop) {
+          top = -minDragDomTop;
+        } else if (top > maxDragDomTop) {
+          top = maxDragDomTop;
+        }
+
+        // 移动当前元素
+        dragDom.style.cssText += `left: ${left + styL}px; top: ${top + styT}px;`;
+      };
+
+      document.onmouseup = function () {
+        document.onmousemove = null;
+        document.onmouseup = null;
+      };
+    };
+  }
+});
+```
+
+* 使用：
+
+  * 在el-dialog上直接加入v-draggable 就可以实现可拖拽的dialog了
+
+  ```html
+  <el-dialog
+              v-draggable
+              title="弹框"
+              v-if="isShowDialog"
+              :visible.sync="isShowDialog"
+              width="344px"
+          >
+              <div>11111</div>
+   </el-dialog>
+  ```
+
+  
