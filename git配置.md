@@ -65,7 +65,7 @@
 
 13. **rm file**  删除文件， git rm 只删除工作区的文件，直接git checkout -- file 是可以还原的，注意区分与git rm的区别
 
-14. **git remote add origin https://github.com/Holding-Hands/JavaScript.git**将远程仓库命名为origin并且关联远程库
+14. **git remote add origin https://github.com/Holding-Hands/JavaScript.git** 将远程仓库命名为origin并且关联远程库
 
 15. **git remote** 查看远程仓库的命名
 
@@ -81,19 +81,19 @@
     git checkout dev // 切换分支 等同于  git switch dev
     ```
 
-19. **git branch **命令会列出所有分支，当前分支前面会标一个`*`号。 
+19. **git branch**命令会列出所有分支，当前分支前面会标一个`*`号。 
 
-20. **git checkout  <name> ** 切换 `name` 分支
+20. **git checkout  <name>** 切换 `name` 分支
 
-21. **git merge  <name> **  在 `master` 分支操作就是把`name`分支的内容合并到`master`分支上 
+21. **git merge  <name>**  在 `master` 分支操作就是把`name`分支的内容合并到`master`分支上 
 
 22. **git branch -d dev**  在master分支操作，删除`dev`分支 
 
-23.  `git log --graph`命令可以看到分支合并图 
+23. **git log --graph**命令可以看到分支合并图 
 
 24. **git stash**  当前修改内容“藏”起来，等以后恢复继续工作
 
-25. **git stash list **查看藏起来列表
+25. **git stash list**查看藏起来列表
 
 26. **git stash apply** 来恢复，但 恢复后stash内容并不删除，你需要用  **git stash drop**来删除，另一种使用 **git stash pop**， 恢复的同时把stash内容也删了 
 
@@ -103,7 +103,7 @@
 
 29. **git pull** 命令会将远程的提交和你本地的提交merge，如果有冲突需要手动解决并提交，会产生merge的记录
 
-30. **git tag  <name> ** 可以打一个新标签， 默认标签是打在最新提交的commit上
+30. **git tag  <name>** 可以打一个新标签， 默认标签是打在最新提交的commit上
 
 ## 3.  git小知识
 
