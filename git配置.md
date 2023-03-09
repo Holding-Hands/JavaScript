@@ -69,7 +69,7 @@
 
 15. **git remote** 查看远程仓库的命名
 
-16. **git clone https://github.com/Holding-Hands/JavaScript.git** clone远程仓库，可以看作一个复合命令：一个是将远程仓库命名为origin，**git remote add origin https://github.com/Holding-Hands/JavaScript.git**。另一个是下载
+16. **git clone https://github.com/Holding-Hands/JavaScript.git** clone远程仓库，可以看作一个复合命令：一个是将远程仓库命名为origin，**git remote add origin https://github.com/Holding-Hands/JavaScript.git** 。另一个是下载
 
 17. **git remote rm origin**  删除远程库， 此处的“删除”其实是解除了本地和远程的绑定关系，并不是物理上删除了远程库。远程库本身并没有任何改动。要真正删除远程库，需要登录到GitHub，在后台页面找到删除按钮再删除。 
 
