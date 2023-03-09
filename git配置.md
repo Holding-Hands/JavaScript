@@ -1,20 +1,130 @@
-## 1 git配置
+## 1 git安装
 
-配置用户名：git config --global user.name zcy
+安装git
 
-配置邮箱：git config --global user.email 1760135477@qq.com
+* 在Windows上使用Git，可以从Git官网直接[下载安装程序](https://git-scm.com/downloads)，然后按默认选项安装即可。
 
-查看git配置信息：git config --list
+* 安装完成后，在开始菜单里找到Git -> Git Bash，弹出一个类似命令行窗口的东西，就说明Git安装成功！
 
-在C盘  -> 用户 -> 当前使用的系统用户 -> .gitconfig 里也可以查看和更改配置信息 只需配置一次就好
+* 最后一步设置，在命令行输入： 
+  * 配置用户名：git config --global user.name zcy
+  * 配置邮箱：git config --global user.email 1760135477@qq.com
+  * 查看git配置信息：git config --list
 
-如果想更换命名，则重新输入命令配置就好了
+* 在C盘  -> 用户 -> 当前使用的系统用户 -> .gitconfig 里也可以查看和更改配置信息 只需配置一次就好
 
-## 2 提交步骤
+* 如果想更换命名，则重新输入命令配置就好了
 
-1. git init 初始化git仓库
-2. git status 查看状态
-3. git add . 添加文件
-4. git commit -m 消息描述
-5. git log 查看提交记录
+## 2 git一些常用命令
 
+1. **git init** 初始化git仓库
+
+2. **git status** 查看状态
+
+3. **git add .** 添加文件
+
+4. **git commit -m** 消息描述
+
+5. **git log** 查看当前分支提交历史记录，git log --pretty=oneline(美观查看，一行展示)
+
+6. **git reflog** 查看操作命令历史记录， 以便确定要回到未来的哪个版本 
+
+7. **git reset HEAD**  可以把暂存区(git add . 之后，且未commit)的修改撤销掉（unstage），重新放回工作区
+
+8. **git restore file**（例如 git restore public/env.js）丢掉工作区的修改（未add之前的修改）,包括删除一些文件（前提是版本库中存在的这些文件）
+
+9. **git checkout -- file**（git checkout -- public/env.js）与第8条功能一样
+
+10. **git reset --hard HEAD** 返回上一个版本
+
+    ```js
+    HEAD指向的版本就是当前版本，因此，Git允许我们在版本的历史之间穿梭，使用命令git reset --hard commit_id。
+    
+    穿梭前，用git log可以查看提交历史，以便确定要回退到哪个版本。
+    要重返未来，用git reflog查看命令历史，以便确定要回到未来的哪个版本。
+    ```
+
+11. **git reset --hard commit_id** 回退到某一个版本
+
+12. **git rm file** 删除文件并且把删文件的修改提交到暂存区， 相当于rm删文件后，执行了git add .
+
+    ```js
+    // 如果误删需要恢复的话
+    git rm public/env.js
+    方法1.
+    git restore --staged  public/env.js // 将暂存区恢复到工作区
+    git restore public/env.js // 将工作区中 public/env.js文件恢复与版本库HEAD中一样的版本
+    
+    方法2.
+    git reset HEAD // 将暂存区恢复到工作区
+    git checkout -- public/env.js // 将工作区恢复之前默认版本。这步同样可使用下面代码替代
+    git restore public/env.js // 将工作区中 public/env.js文件恢复与版本库HEAD中一样的版本
+    
+    有人会使用git reset --hard HEAD 来恢复，前提是你其他文件修改，也需要还原至版本库中一致，就相当于整体撤销修改。上面两种是撤销部分文件夹修改
+    ```
+
+13. **rm file**  删除文件， git rm 只删除工作区的文件，直接git checkout -- file 是可以还原的，注意区分与git rm的区别
+
+14. **git remote add origin https://github.com/Holding-Hands/JavaScript.git**将远程仓库命名为origin并且关联远程库
+
+15. **git remote** 查看远程仓库的命名
+
+16. **git clone https://github.com/Holding-Hands/JavaScript.git** clone远程仓库，可以看作一个复合命令：一个是将远程仓库命名为origin，**git remote add origin https://github.com/Holding-Hands/JavaScript.git**。另一个是下载
+
+17. **git remote rm origin**  删除远程库， 此处的“删除”其实是解除了本地和远程的绑定关系，并不是物理上删除了远程库。远程库本身并没有任何改动。要真正删除远程库，需要登录到GitHub，在后台页面找到删除按钮再删除。 
+
+18. **git checkout -b de**v 创建一个`dev`分支， 然后切换到`dev`分支**git switch -c dev** 也可以达到同样的效果
+
+    ```js
+    // git checkout命令加上-b参数表示创建并切换，相当于以下两条命令：
+    git branch dev // 创建分支
+    git checkout dev // 切换分支 等同于  git switch dev
+    ```
+
+19. **git branch **命令会列出所有分支，当前分支前面会标一个`*`号。 
+
+20. **git checkout  <name> ** 切换 `name` 分支
+
+21. **git merge  <name> **  在 `master` 分支操作就是把`name`分支的内容合并到`master`分支上 
+
+22. **git branch -d dev**  在master分支操作，删除`dev`分支 
+
+23.  `git log --graph`命令可以看到分支合并图 
+
+24. **git stash**  当前修改内容“藏”起来，等以后恢复继续工作
+
+25. **git stash list **查看藏起来列表
+
+26. **git stash apply** 来恢复，但 恢复后stash内容并不删除，你需要用  **git stash drop**来删除，另一种使用 **git stash pop**， 恢复的同时把stash内容也删了 
+
+27. **git cherry-pick commit_id**  复制一个特定的提交到当前分支，比如在a分支改动了了一些内容，我想在b分支也要修改同样的内容，那么使用`git cherry-pick commit_id `命令就不需要在b分支也改一份了，省时省力。
+
+28. **git branch -D <name>**  强行删除某一个分支
+
+29. **git pull** 命令会将远程的提交和你本地的提交merge，如果有冲突需要手动解决并提交，会产生merge的记录
+
+30. **git tag  <name> ** 可以打一个新标签， 默认标签是打在最新提交的commit上
+
+## 3.  git小知识
+
+* https://git-scm.com/docs git 官方文档
+* Git支持多种协议，包括`https`，但`ssh`协议速度最快。
+* 从远程库克隆
+
+```js
+// 比如到一个新公司，你没有公司项目那么要clone公司的项目
+git clone https://github.com/Holding-Hands/JavaScript.git
+```
+
+* 添加远程库
+
+```js
+// 比如我们使用 git init 在本地创建了一个git版本库，然后再github上也创建一个仓库。我们需要把这两个仓库关联起来
+
+git remote add origin https://github.com/Holding-Hands/JavaScript.git
+git push -u origin master // 第一次推送 本地库的所有内容推送到远程库上，Git不但会把本地的master分支内容推送的远程新的master分支，还会把本地的master分支和远程的master分支关联起来，在以后的推送或者拉取时就可以简化命令。
+$ git push origin master // 以后在提交
+```
+
+* `Fast-forward`，合并是“快进模式”，例如直接把`master`指向`dev`的当前提交，所以合并速度非常快。当然，也不是每次合并都能`Fast-forward`
+* git merge --no-ff -m "merge with no-ff" dev， `--no-ff`参数，表示禁用`Fast forward` ，采用普通模式合并，合并后的历史有分支，能看出来曾经做过合并，而`fast forward`合并就看不出来曾经做过合并 
