@@ -9,8 +9,9 @@
 *  Prettier - Code formatter
   * 格式化代码
 * Eslint
-  * 代码规范
-* 
+  * 约束代码规范
+* Vetur
+  * 支持vue，对vue检测相对于volar更加严格
 
 ### 二、VScode相关配置
 
