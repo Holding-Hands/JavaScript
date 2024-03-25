@@ -13,6 +13,12 @@
 * Vetur
   * 支持vue，对vue检测相对于volar更加严格
 
+* 在vscode中开发小程序相关插件
+  *  JavaScript (ES6) code snippets： 使用es6开发
+  *  小程序格式化/高亮/自动补全 ：小程序代码补全
+  *  wechat-snippet：更丰富的补全，比如wx-request
+  *  wechat-snippet： VSCODE 微信小程序开发助手，比如创建小程序页面
+
 ### 二、VScode相关配置
 
 * vscode 代码片段
