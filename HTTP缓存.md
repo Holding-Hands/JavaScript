@@ -26,7 +26,7 @@
 
 #### 2.2 协商缓存的2种实现方式
 
-* 第一种方式：**Cache-Contro** 和 **Last-Modified**方式
+* 第一种方式：**Cache-Control** 和 **Last-Modified**方式
 
   * 服务器设置**Last-Modified**: GMT格式的时间，**Cache-Control**：no-cache
   * 第一次向服务器请求时，服务器给客户端返回资源和Last-Modified，浏览器会把返回的资源存在本地缓存中
