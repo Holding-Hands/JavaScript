@@ -4,7 +4,79 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="d9b2251a-0410-4713-9dcd-05d7a6ee1477" name="变更" comment="" />
+    <list default="true" id="d9b2251a-0410-4713-9dcd-05d7a6ee1477" name="变更" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/JavaScript高级程序设计第4版.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/Vue.js设计与实现.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/~$3：浙江青瓷.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/《CSS核心技术详解》.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/代码大全.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/展览3：浙江青瓷.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷1科一科二题目与解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷1科三科四题目与解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷2科一科二题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷2科三科四题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷3科一科二题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷3科三科四题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷4科一科二题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷4科三科四题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷5科一科二题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/101押题卷5科三科四题目与解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/101/江郎山·廿八都.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/浙江230问.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/浙江（上）.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/浙江（下）.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/考纲.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/~$市-南浔古镇.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/~$浙江省省情.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/丽水市-缙云仙都景区.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/台州市-天台山.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/嘉兴市-南湖旅游区.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/宁波市-天一阁.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/杭州-西湖.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/杭州市-良渚古城遗址.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/杭州概况.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/浙江省省情.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/温州市-雁荡山.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/湖州市-南浔古镇.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/湖州市-莫干山.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/绍兴市-鲁迅故里沈园.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/舟山市-普陀山风景名胜区.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/衢州市-江郎山.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/讲解词/金华市-横店影视城景区.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷1科一科二解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷1科一科二题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷1科三科四解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷1科三科四题目.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷2科一科二解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷2科一科二题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷2科三科四解析.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷2科三科四题目.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷3科一科二解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷3科一科二题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷3科三科四解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷3科三科四题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷4科一科二题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷4科三科四题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷5科一科二解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷5科一科二题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷5科三科四解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷5科三科四题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷6科一科二解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷6科一科二题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷6科三科四解析.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/押题卷/雷大大/雷大大押题卷6科三科四题目.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/青瓷馆小作文v1.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/青瓷馆小作文v2.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/青瓷馆讲解稿.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/青瓷馆讲解词（自创）.docx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/面试题coderwhy/01_coderwhy八股文-HTML-CSS（一）.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/面试题coderwhy/02_coderwhy前端八股文+-+浏览器相关（二）.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/面试题coderwhy/03_coderwhy前端八股文（三）+-+跨域问题.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/面试题coderwhy/04_coderwhy前端八股文（四）+-+事件循环.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/面试题coderwhy/05_coderwhy前端八股文（五）+-+V8引擎和内存管理 (1).pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/学习资料/面试题coderwhy/05_coderwhy前端八股文（五）+-+V8引擎和内存管理.pdf" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -16,6 +88,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 0
+}]]></component>
   <component name="ProjectId" id="2NS35u1MUQPQ6R6aUfzB1iHl1LV" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -25,7 +100,10 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -34,6 +112,13 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-js-predefined-d6986cc7102b-b598e85cdad2-JavaScript-WS-252.25557.126" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="应用程序级" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="默认任务">
@@ -44,6 +129,7 @@
       <updated>1679643475559</updated>
       <workItem from="1679643476896" duration="1000" />
       <workItem from="1697419359903" duration="1827000" />
+      <workItem from="1764234998205" duration="2286000" />
     </task>
     <servers />
   </component>
